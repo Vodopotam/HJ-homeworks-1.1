@@ -10,5 +10,9 @@ function showSlider() {
 	step += 1;
 }
 
-setInterval(showSlider, 5000);
+window.onload = function() {
+	showSlider();
+	setInterval(showSlider, 5000);
+}
+
 
