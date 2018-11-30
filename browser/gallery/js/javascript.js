@@ -15,7 +15,7 @@ function moveRight() {
 	slider.src = `i/${photos[step]}`;
 }
 
-var photos = ['new-museum.jpg', 'headquarters.jpg', 'guggenheim-museum.jpg', 'breuer-building.jpg', 'IAC.jpg'];
+let photos = ['breuer-building.jpg', 'guggenheim-museum.jpg', 'headquarters.jpg', 'IAC.jpg', 'new-museum.jpg'];
 const slider = document.getElementById('currentPhoto');
 let step = -1;
 
@@ -24,3 +24,6 @@ leftButton.onclick = moveLeft;
 
 let rightButton = document.getElementById('nextPhoto');
 rightButton.onclick = moveRight;
+
+moveRight();
+
