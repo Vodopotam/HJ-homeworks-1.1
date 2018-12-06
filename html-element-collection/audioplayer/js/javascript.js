@@ -16,12 +16,19 @@ let songs = [
 const player = document.getElementsByTagName('audio')[0];
 const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
 const playButton = document.getElementsByClassName('playstate')[0];
+let songTitle = document.getElementsByClassName('title')[0];
+let step = 0;
 
 playButton.onclick = function() {
-	mediaplayer.classList.toggle('play');
 	if (player.paused) {
+		//playButton.style.display = 'none';
+		//playButton.style.display = 'inline-block';
+		mediaplayer.classList.add('play');
 		player.play();
 	} else {
+		//playButton.style.display = 'none';
+		//playButton.style.display = 'inline-block';
+		mediaplayer.classList.remove('play');
 		player.pause();
 	}
 }
@@ -41,10 +48,10 @@ function moveLeft() {
 	}
 	player.src = `mp3/${songs[step].src}`;
 	songTitle.title = songs[step].title;
-	if (player.paused) {
-		player.play();
-	} else {
+	if (!mediaplayer.classList.contains('play')) {
 		player.pause();
+	} else {
+		player.play();
 	}
 }
 
@@ -55,16 +62,15 @@ function moveRight() {
 	}
 	player.src = `mp3/${songs[step].src}`;
 	songTitle.title = songs[step].title;
-	if (player.paused) {
-		player.play();
-	} else {
+	if (!mediaplayer.classList.contains('play')) {
 		player.pause();
+	} else {
+		player.play();
 	}
 } 
 
-let songTitle = document.getElementsByClassName('title')[0];
-let step = 0;
 const backward = document.getElementsByClassName('back')[0];
 backward.onclick = moveLeft;
-const forward = document.getElementsByClassName('fa-forward')[0];
+const forward = document.getElementsByClassName('next')[0];
 forward.onclick = moveRight;
+
