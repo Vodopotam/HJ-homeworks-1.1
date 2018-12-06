@@ -21,13 +21,9 @@ let step = 0;
 
 playButton.onclick = function() {
 	if (player.paused) {
-		//playButton.style.display = 'none';
-		//playButton.style.display = 'inline-block';
 		mediaplayer.classList.add('play');
 		player.play();
 	} else {
-		//playButton.style.display = 'none';
-		//playButton.style.display = 'inline-block';
 		mediaplayer.classList.remove('play');
 		player.pause();
 	}
