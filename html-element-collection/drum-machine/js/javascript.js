@@ -1,9 +1,10 @@
 'use srtrict';
-const instruments = document.getElementsByClassName('drum-kit__drum');
-const instrumentsArr = Array.from(instruments);
+const instruments = document.getElementsByTagName('li');
 
-instrumentsArr.forEach((item) => {
+for (const item of instruments) {
 	const audio = item.getElementsByTagName('audio')[0];
-		item.onclick = () => audio.play();
-})
-
+	item.onclick = function() {
+		audio.currentTime = 0;
+		audio.play();
+		}
+}
