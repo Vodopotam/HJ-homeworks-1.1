@@ -13,57 +13,47 @@ prev.classList.add('disabled');
 function Slider(container) {
 	next.addEventListener('click', (event) => moveSlider(true));
 	prev.addEventListener('click', (event) => moveSlider(false));
-	first.addEventListener('click', (event) => showLast(false));
-	last.addEventListener('click', (event) => showLast(true));
+	first.addEventListener('click', (event) => moveSlider(false));
+	last.addEventListener('click', (event) => moveSlider(true));
 
-	function moveSlider(isForward) {
-		const currentSlide = container.querySelector('.slide-current');
-		const activatedSlide = isForward ? 
-		currentSlide.nextElementSibling :
-		currentSlide.previousElementSibling;
-		
-		if (activatedSlide === currentSlide.nextElementSibling) {
-			if (activatedSlide === slides.lastElementChild) {
-				last.classList.add('disabled');
-				next.classList.add('disabled');
-			}
-			if (activatedSlide !== null) {
-				currentSlide.classList.remove('slide-current');
-				activatedSlide.classList.add('slide-current');
-				prev.classList.remove('disabled');
-				first.classList.remove('disabled');
-			}
-		} else {
-			if (activatedSlide === slides.firstElementChild) {
-				first.classList.add('disabled');
-				prev.classList.add('disabled');
-			}
-			if (activatedSlide !== null) {
-				currentSlide.classList.remove('slide-current');
-				activatedSlide.classList.add('slide-current');
-				next.classList.remove('disabled');
-				last.classList.remove('disabled');
-			}
+
+	function moveSlider() {
+		let currentSlide = container.querySelector('.slide-current');
+		let activatedSlide;
+
+		if (event.target.dataset.action === 'next') {
+			activatedSlide = currentSlide.nextElementSibling;
+		} else if (event.target.dataset.action === 'prev') {
+			activatedSlide = currentSlide.previousElementSibling;
 		}
+
+		if (event.target.dataset.action === 'first') {
+			activatedSlide = slides.firstElementChild;
+		} else if (event.target.dataset.action === 'last'){
+			activatedSlide = slides.lastElementChild;
+		}
+
+		setButtons(activatedSlide, currentSlide);
 	}
 
-	function showLast(isForward) {
-		const currentSlide = container.querySelector('.slide-current');
-		const activatedSlide = isForward ?
-		slides.lastElementChild :
-		slides.firstElementChild;
-
-		currentSlide.classList.remove('slide-current');
-		activatedSlide.classList.add('slide-current'); 
-
-		if (activatedSlide === slides.lastElementChild) {
-			last.classList.add('disabled');
-			next.classList.add('disabled');
+	function setButtons(activatedSlide, currentSlide) {
+		if (activatedSlide !== null) {
+			currentSlide.classList.remove('slide-current');
+			activatedSlide.classList.add('slide-current');
 			prev.classList.remove('disabled');
 			first.classList.remove('disabled');
-		} else {
-			prev.classList.add('disabled');
+			next.classList.remove('disabled');
+			last.classList.remove('disabled');
+		} 
+		if (activatedSlide === slides.lastElementChild) {
+			prev.classList.remove('disabled');
+			first.classList.remove('disabled');
+			last.classList.add('disabled');
+			next.classList.add('disabled');
+		}
+		if (activatedSlide === slides.firstElementChild) {
 			first.classList.add('disabled');
+			prev.classList.add('disabled');
 			last.classList.remove('disabled');
 			next.classList.remove('disabled');
 		}
