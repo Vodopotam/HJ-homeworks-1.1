@@ -5,14 +5,19 @@ const connection = new WebSocket('wss://neto-api.herokuapp.com/mouse');
 
 connection.addEventListener('open', () => {
 	showBubbles(connection);
+	body.addEventListener('click', setBubble);
 });
 
-body.addEventListener('click', event => {
+function setBubble() {
 	connection.send(JSON.stringify({
 		x: event.x,
 		y: event.y
 	}));
-})
+}
+
+
+
+
 
 
 

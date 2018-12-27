@@ -18,9 +18,11 @@ connection.addEventListener('open', () => {
 	messageSubmit.disabled = false;
 	messageSubmit.addEventListener('click', sendMessage);
 	messageInput.addEventListener('keydown', pressEnter);
+	messageInput.focus();
 	messageStatusText.firstElementChild.innerText = 'Пользователь появился в сети';
 	connection.send('Пользователь появился в сети');
 	messageContent.appendChild(messageStatusText);
+
 });
 
 connection.addEventListener('message', (event) => {
@@ -37,6 +39,9 @@ connection.addEventListener('message', (event) => {
 		let clone = message.cloneNode(true);
 		messageContent.appendChild(clone);
 	}
+	scrollToBottom();
+	//messages.scrollTop = 9999;
+
 });
 
 connection.addEventListener('close', event => {
@@ -65,6 +70,14 @@ function sendMessage(event) {
 	messageContent.appendChild(clone);
 	connection.send(messageInput.value);
 
+	loadingMessage.lastElementChild.scrollTop = 9999;
+
+	messageInput.value = '';
+	messageInput.focus();
+
+	scrollToBottom();
+	//messages.scrollTop = 9999;
+
 	if (messageInput.value === 'close') {
 		connection.close(1000);
 	}
@@ -76,5 +89,16 @@ function pressEnter(event) {
 	}
 	sendMessage(event);
 }
+
+function scrollToBottom() {
+	let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+	if (!shouldScroll) {
+		messages.scrollTop = messages.scrollHeight;
+	}
+}
+
+
+
+
 
 
